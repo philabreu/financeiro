@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.br.model;
+package com.br.modelos;
 
 import java.io.Serializable;
 
