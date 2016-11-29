@@ -4,7 +4,6 @@
 package com.br.entidades;
 
 import javax.persistence.Persistence;
-import javax.persistence.EntityManagerFactory;
 
 
 /**
