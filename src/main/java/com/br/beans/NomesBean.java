@@ -25,17 +25,16 @@ public class NomesBean {
 	private HtmlInputText inputNome;
 	private HtmlCommandButton botaoAdicionar;
 
-	public void adicionar() {
+	public String adicionar() {
 
 		this.nomes.add(nome);
 
 		if (this.nomes.size() > 3) {
-			this.inputNome.setDisabled(true);
-			this.botaoAdicionar.setDisabled(true);
-			this.botaoAdicionar.setValue("Muitos nomes adicionados...");
+			return "ola?faces-redirect=true";
 
 		}
 
+		return null;
 	}
 
 	public String getNome() {
