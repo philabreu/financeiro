@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import com.br.modelos.Lancamento;
+import com.br.repositorio.LancamentoRepositorio;
 import com.br.util.JpaUtil;
 
 /**
@@ -32,10 +33,8 @@ public class ConsultaLancamentosBean implements Serializable {
 	public void consultar() {
 
 		EntityManager manager = JpaUtil.getEntityManager();
-		TypedQuery<Lancamento> query = manager.createQuery("from Lancamento",
-				Lancamento.class);
-
-		this.lancamentos = query.getResultList();
+		LancamentoRepositorio lancamentos = new LancamentoRepositorio(manager);
+		this.lancamentos = lancamentos.todos();
 
 		manager.close();
 	}
