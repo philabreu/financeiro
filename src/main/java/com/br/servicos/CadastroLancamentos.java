@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 
 import com.br.modelos.Lancamento;
 import com.br.repositorio.LancamentoRepositorio;
@@ -25,6 +26,7 @@ public class CadastroLancamentos implements Serializable {
 	@Inject
 	private LancamentoRepositorio lancamentos;
 
+	@Transactional
 	public void salvar(Lancamento lancamento) throws NegocioException {
 
 		if (lancamento.getDataPagamento() != null

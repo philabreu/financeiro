@@ -28,8 +28,8 @@ public class LancamentoRepositorio implements Serializable {
 
 	@Inject
 	public LancamentoRepositorio(EntityManager manager) {
-		this.manager = manager;
 
+		this.manager = manager;
 	}
 
 	public List<Lancamento> todos() {
@@ -38,14 +38,14 @@ public class LancamentoRepositorio implements Serializable {
 		return query.getResultList();
 
 	}
-	
-	public void adicionar(Lancamento lancamento){
-		
+
+	public void adicionar(Lancamento lancamento) {
+
 		EntityTransaction transacao = this.manager.getTransaction();
 		transacao.begin();
 		this.manager.persist(lancamento);
 		transacao.commit();
-		
+
 	}
 
 }

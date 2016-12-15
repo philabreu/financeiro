@@ -7,11 +7,10 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.persistence.EntityManager;
+import javax.inject.Inject;
 
 import com.br.modelos.Pessoa;
 import com.br.repositorio.PessoaRepositorio;
-import com.br.util.JpaUtil;
 
 /**
  * @author Filipe Bezerra
@@ -21,27 +20,21 @@ import com.br.util.JpaUtil;
 @FacesConverter(forClass = Pessoa.class)
 public class PessoaConverter implements Converter {
 
+	@Inject
+	private PessoaRepositorio pessoas;
+
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component,
 			String value) {
 
 		Pessoa retorno = null;
-		EntityManager manager = JpaUtil.getEntityManager();
 
-		try {
+		if (value != null) {
 
-			if (value != null && !"".equals(value)) {
-
-				PessoaRepositorio pessoas = new PessoaRepositorio(manager);
-				retorno = pessoas.porId(new Long(value));
-			}
-
-			return retorno;
-		} finally {
-
-			manager.close();
+			retorno = this.pessoas.porId(new Long(value));
 		}
 
+		return retorno;
 	}
 
 	@Override
