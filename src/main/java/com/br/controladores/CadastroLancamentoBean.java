@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -62,6 +63,15 @@ public class CadastroLancamentoBean implements Serializable {
 			FacesMessage mensagem = new FacesMessage(e.getMessage());
 			mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
 			context.addMessage(null, mensagem);
+		}
+	}
+
+	public void dataVencimentoAlterada(AjaxBehaviorEvent event) {
+
+		if (this.lancamento.getDataPagamento() == null) {
+
+			this.lancamento.setDataPagamento(this.lancamento
+					.getDataVencimento());
 		}
 	}
 

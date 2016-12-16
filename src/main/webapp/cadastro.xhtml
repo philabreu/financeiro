@@ -50,8 +50,9 @@
 					<f:convertDateTime pattern="dd/MM/yyyy"	timeZone="America/Sao_Paulo" />
 				</h:inputText>
 				<h:outputLabel />
-				<h:commandButton value="Salvar"
-					action="#{cadastroLancamentoBean.salvar}" />
+				<h:commandButton value="Salvar"	action="#{cadastroLancamentoBean.salvar}">
+					<f:ajax execute="@form" render="@form" />
+				</h:commandButton>
 			</h:panelGrid>
 		</h:form>
 	</ui:define>
