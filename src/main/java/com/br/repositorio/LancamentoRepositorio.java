@@ -8,7 +8,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 import com.br.modelos.Lancamento;
@@ -41,10 +40,7 @@ public class LancamentoRepositorio implements Serializable {
 
 	public void adicionar(Lancamento lancamento) {
 
-		EntityTransaction transacao = this.manager.getTransaction();
-		transacao.begin();
 		this.manager.persist(lancamento);
-		transacao.commit();
 
 	}
 

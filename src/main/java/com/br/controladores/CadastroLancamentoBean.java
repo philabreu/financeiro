@@ -9,6 +9,7 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -24,7 +25,7 @@ import com.br.servicos.NegocioException;
  * 
  */
 @Named
-@javax.faces.view.ViewScoped
+@ViewScoped
 public class CadastroLancamentoBean implements Serializable {
 
 	/**
@@ -67,9 +68,7 @@ public class CadastroLancamentoBean implements Serializable {
 	}
 
 	public void dataVencimentoAlterada(AjaxBehaviorEvent event) {
-
 		if (this.lancamento.getDataPagamento() == null) {
-
 			this.lancamento.setDataPagamento(this.lancamento
 					.getDataVencimento());
 		}
