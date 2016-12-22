@@ -32,16 +32,34 @@ public class LancamentoRepositorio implements Serializable {
 	}
 
 	public List<Lancamento> todos() {
+		
 		TypedQuery<Lancamento> query = manager.createQuery("from Lancamento",
 				Lancamento.class);
 		return query.getResultList();
-
 	}
 
 	public void adicionar(Lancamento lancamento) {
 
 		this.manager.persist(lancamento);
-
 	}
 
+	public List<String> descricaoQueContem(String descricao) {
+
+		TypedQuery<String> query = manager.createQuery(
+				"select distinct descricao from Lancamento"
+						+ "where upper(descricao) like upper(:descricao)",
+				String.class);
+		return query.getResultList();
+	}
+	
+	public Lancamento porId(Long id){
+		
+		return manager.find(Lancamento.class, id);
+	}
+
+	public Lancamento guardar(Lancamento lancamento){
+		
+		return this.manager.merge(lancamento);
+	}
+	
 }

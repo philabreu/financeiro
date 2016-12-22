@@ -37,8 +37,7 @@ public class CadastroLancamentos implements Serializable {
 
 		}
 
-		this.lancamentos.adicionar(lancamento);
-
+		this.lancamentos.guardar(lancamento);
 	}
 
 }

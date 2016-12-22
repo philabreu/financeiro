@@ -4,22 +4,29 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:o="http://omnifaces.org/ui">
+
 	<f:metadata>
-		<f:viewAction action="#{cadastroLancamentoBean.prepararCadastro}" />
+		<o:viewParam name="id"
+		value="#{cadastroLancamentoBean.lancamento}" />
+		<f:viewAction
+		action="#{cadastroLancamentoBean.prepararCadastro}" />	
 	</f:metadata>
 	<ui:define name="titulo">Cadastro de lançamento</ui:define>
 	<ui:define name="corpo">
 		<h1>Cadastro de lançamento</h1>
 		<h:form id="frm">
-			<h:messages showDetail="false" showSummary="true" />
+			<p:messages showDetail="false" showSummary="true" autoUpdate="true" />
 			<p:panelGrid columns="2">
-				<p:outputLabel value="Tipo" />
-				<p:selectOneRadio value="#{cadastroLancamentoBean.lancamento.tipo}"
-					label="Tipo do lançamento">
+				<p:outputLabel value="Tipo do lançamento" />
+				<p:selectOneButton id="tipo"
+					value="#{cadastroLancamentoBean.lancamento.tipo}">
 					<f:selectItems value="#{cadastroLancamentoBean.tiposLancamentos}"
-						var="tipoLancamento" itemValue="#{tipoLancamento}" />
-				</p:selectOneRadio>
+						var="tipoLancamento" itemValue="#{tipoLancamento}"
+						itemLabel="#{tipoLancamento.descricao}">
+					</f:selectItems>
+				</p:selectOneButton>
 				<p:outputLabel value="Pessoa" />
 				<p:selectOneMenu value="#{cadastroLancamentoBean.lancamento.pessoa}"
 					label="Pessoa" id="pessoa" filter="true" filterMatchMode="contains">
@@ -28,36 +35,31 @@
 						var="pessoa" itemValue="#{pessoa}" itemLabel="#{pessoa.nome}" />
 				</p:selectOneMenu>
 				<p:outputLabel value="Descrição" />
-				<p:inputText size="60"
-					value="#{cadastroLancamentoBean.lancamento.descricao}"
-					label="Descrição" />
+
+				<p:inputText value="#{cadastroLancamentoBean.lancamento.descricao}"
+					label="Descrição" size="50" />
 				<p:outputLabel value="Valor" />
-				<p:inputText size="12"
-					value="#{cadastroLancamentoBean.lancamento.valor}" label="Valor">
+				<p:inputText value="#{cadastroLancamentoBean.lancamento.valor}"
+					label="Valor">
 					<f:convertNumber locale="pt_BR" maxFractionDigits="2"
 						minFractionDigits="2" />
 				</p:inputText>
-				<p:outputLabel value="Data de vencimento" />
-				<p:inputText size="12" value="#{cadastroLancamentoBean.lancamento.dataVencimento}" 
-					label="Data de vencimento">
-					<f:ajax render="@this dataPagamento"
-					execute="@this dataPagamento"
-					listener="#{cadastroLancamentoBean.dataVencimentoAlterada}" />
-					<f:convertDateTime pattern="dd/MM/yyyy"
-					timeZone="America/Sao_Paulo" />
-				</p:inputText>
-				<p:outputLabel value="Data de pagamento" />
-				<p:inputText size="12" value="#{cadastroLancamentoBean.lancamento.dataPagamento}" 
-					label="Data de pagamento"
-					
-					id="dataPagamento">
-					<f:convertDateTime pattern="dd/MM/yyyy"
-						timeZone="America/Sao_Paulo" />
-				</p:inputText>
-				<p:outputLabel />
-				<p:commandButton value="Salvar" action="#{cadastroLancamentoBean.salvar}">
-					<f:ajax execute="@form" render="@form" />
-				</p:commandButton>
+				<p:outputLabel value="Data de vencimento" for="dataVencimento" />
+				<p:calendar id="dataVencimento" pattern="dd/MM/yyyy"
+					value="#{cadastroLancamentoBean.lancamento.dataVencimento}">
+					<p:ajax event="dateSelect" update="@this dataPagamento"
+						process="@this dataPagamento"
+						listener="#{cadastroLancamentoBean.dataVencimentoAlterada}" />
+					<p:ajax event="change" update="@this dataPagamento"
+						process="@this dataPagamento"
+						listener="#{cadastroLancamentoBean.dataVencimentoAlterada}" />
+				</p:calendar>
+				<p:outputLabel value="Data de pagamento" for="dataPagamento" />
+				<p:calendar size="12" id="dataPagamento" pattern="dd/MM/yyyy"
+					value="#{cadastroLancamentoBean.lancamento.dataPagamento}" />
+				<p:commandButton value="Salvar"
+					action="#{cadastroLancamentoBean.salvar}" icon="ui-icon-disk"
+					update="@form" />
 			</p:panelGrid>
 		</h:form>
 	</ui:define>

@@ -2,7 +2,8 @@
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 	<f:metadata>
 		<f:viewAction action="#{consultaLancamentosBean.consultar}" />
 	</f:metadata>
@@ -10,45 +11,45 @@
 	<ui:define name="corpo">
 		<h1>Consulta de lançamentos</h1>
 		<h:form id="frm">
-			<h:dataTable value="#{consultaLancamentosBean.lancamentos}"
-				var="lancamento" border="1" cellspacing="0" cellpadding="2">
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Pessoa" />
-					</f:facet>
+			<p:dataTable value="#{consultaLancamentosBean.lancamentos}"
+				var="lancamento" border="1" cellspacing="0" cellpadding="2"
+				paginator="true" rows="11" paginatorPosition="bottom">
+				<p:column headerText="Pessoa" sortBy="#{lancamento.pessoa.nome}">
 					<h:outputText value="#{lancamento.pessoa.nome}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Descrição" />
-					</f:facet>
+				</p:column>
+				<p:column headerText="Descrição" sortBy="#{lancamento.descricao}">
 					<h:outputText value="#{lancamento.descricao}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Tipo" />
-					</f:facet>
-					<h:outputText value="#{lancamento.tipo}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Valor" />
-					</f:facet>
-					<h:outputText value="#{lancamento.valor}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Data de vencimento" />
-					</f:facet>
-					<h:outputText value="#{lancamento.dataVencimento}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Data de pagamento" />
-					</f:facet>
-					<h:outputText value="#{lancamento.dataPagamento}" />
-				</h:column>
-			</h:dataTable>
+				</p:column>
+				<p:column headerText="Tipo">
+					<h:outputText value="#{lancamento.tipo.descricao}" />
+				</p:column>
+				<p:column headerText="Valor" style="text-align: right"
+					sortBy="#{lancamento.valor}">
+					<h:outputText value="#{lancamento.valor}">
+						<f:convertNumber type="currency" locale="pt_BR" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Vencimento" style="text-align: center"
+					sortBy="#{lancamento.dataVencimento}">
+					<h:outputText value="#{lancamento.dataVencimento}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Pagamento" style="text-align: center"
+					sortBy="#{lancamento.dataPagamento}">
+					<h:outputText value="#{lancamento.dataPagamento}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</p:column>
+				<p:column>
+					<p:button icon="ui-icon-pencil" title="Editar"
+					outcome="/cadastro">
+					<f:param name="id" value="#{lancamento.id}" />
+					</p:button>
+				</p:column>
+			</p:dataTable>
 		</h:form>
 	</ui:define>
 </ui:composition>
