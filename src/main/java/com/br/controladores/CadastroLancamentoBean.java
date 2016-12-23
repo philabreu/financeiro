@@ -9,7 +9,6 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -26,7 +25,7 @@ import com.br.servicos.NegocioException;
  * 
  */
 @Named
-@ViewScoped
+@javax.faces.view.ViewScoped
 public class CadastroLancamentoBean implements Serializable {
 
 	/**

@@ -7,47 +7,55 @@
 	<f:metadata>
 		<f:viewAction action="#{consultaLancamentosBean.consultar}" />
 	</f:metadata>
-	<ui:define name="titulo">Consulta de lançamentos</ui:define>
-	<ui:define name="corpo">
+
+    <ui:define name="titulo">Consulta de lançamentos</ui:define>
+    
+    <ui:define name="corpo">
+		
 		<h1>Consulta de lançamentos</h1>
+	
 		<h:form id="frm">
-			<p:dataTable value="#{consultaLancamentosBean.lancamentos}"
-				var="lancamento" border="1" cellspacing="0" cellpadding="2"
-				paginator="true" rows="11" paginatorPosition="bottom">
+			<p:messages showDetail="false" showSummary="true" autoUpdate="true" />
+		
+			<p:dataTable value="#{consultaLancamentosBean.lancamentos}" var="lancamento"
+					border="1" cellspacing="0" cellpadding="2"
+					paginator="true" rows="12" paginatorPosition="bottom">
 				<p:column headerText="Pessoa" sortBy="#{lancamento.pessoa.nome}">
 					<h:outputText value="#{lancamento.pessoa.nome}" />
 				</p:column>
 				<p:column headerText="Descrição" sortBy="#{lancamento.descricao}">
 					<h:outputText value="#{lancamento.descricao}" />
 				</p:column>
-				<p:column headerText="Tipo">
+				<p:column headerText="Tipo" width="80">
 					<h:outputText value="#{lancamento.tipo.descricao}" />
 				</p:column>
-				<p:column headerText="Valor" style="text-align: right"
-					sortBy="#{lancamento.valor}">
+				<p:column headerText="Valor" style="text-align: right" sortBy="#{lancamento.valor}"
+						width="100">
 					<h:outputText value="#{lancamento.valor}">
 						<f:convertNumber type="currency" locale="pt_BR" />
 					</h:outputText>
 				</p:column>
-				<p:column headerText="Vencimento" style="text-align: center"
-					sortBy="#{lancamento.dataVencimento}">
+				<p:column headerText="Vencimento" style="text-align: center" sortBy="#{lancamento.dataVencimento}"
+						width="100">
 					<h:outputText value="#{lancamento.dataVencimento}">
-						<f:convertDateTime pattern="dd/MM/yyyy"
-							timeZone="America/Sao_Paulo" />
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
 					</h:outputText>
 				</p:column>
-				<p:column headerText="Pagamento" style="text-align: center"
-					sortBy="#{lancamento.dataPagamento}">
+				<p:column headerText="Pagamento" style="text-align: center" sortBy="#{lancamento.dataPagamento}"
+						width="100">
 					<h:outputText value="#{lancamento.dataPagamento}">
-						<f:convertDateTime pattern="dd/MM/yyyy"
-							timeZone="America/Sao_Paulo" />
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
 					</h:outputText>
 				</p:column>
-				<p:column>
-					<p:button icon="ui-icon-pencil" title="Editar"
-					outcome="/cadastro">
-					<f:param name="id" value="#{lancamento.id}" />
+				<p:column width="70" style="text-align: center">
+					<p:button icon="ui-icon-pencil" title="Editar" outcome="/cadastro">
+						<f:param name="id" value="#{lancamento.id}" />
 					</p:button>
+					<p:commandButton icon="ui-icon-trash" title="Excluir" process="@this" update="@form"
+							action="#{consultaLancamentosBean.excluir}">
+	    				<f:setPropertyActionListener value="#{lancamento}" 
+	    					target="#{consultaLancamentosBean.lancamentoSelecionado}" />
+	    			</p:commandButton>
 				</p:column>
 			</p:dataTable>
 		</h:form>

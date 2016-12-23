@@ -27,14 +27,12 @@ public class LancamentoRepositorio implements Serializable {
 
 	@Inject
 	public LancamentoRepositorio(EntityManager manager) {
-
 		this.manager = manager;
 	}
 
 	public List<Lancamento> todos() {
-		
-		TypedQuery<Lancamento> query = manager.createQuery("from Lancamento",
-				Lancamento.class);
+		TypedQuery<Lancamento> query = manager.createQuery(
+				"from Lancamento", Lancamento.class);
 		return query.getResultList();
 	}
 
@@ -49,6 +47,7 @@ public class LancamentoRepositorio implements Serializable {
 				"select distinct descricao from Lancamento"
 						+ "where upper(descricao) like upper(:descricao)",
 				String.class);
+		query.setParameter("descricao", "%" + descricao + "%");
 		return query.getResultList();
 	}
 	
@@ -60,6 +59,11 @@ public class LancamentoRepositorio implements Serializable {
 	public Lancamento guardar(Lancamento lancamento){
 		
 		return this.manager.merge(lancamento);
+	}
+	
+	public void remover(Lancamento lancamento){
+		
+		this.manager.remove(lancamento);
 	}
 	
 }
