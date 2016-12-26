@@ -6,7 +6,6 @@ package com.br.controladores;
 import java.util.Date;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -17,21 +16,15 @@ import javax.inject.Named;
  */
 
 @Named
-@ApplicationScoped
+@javax.enterprise.context.RequestScoped
 public class LoginBean {
 
 	@Inject
 	private Usuario usuario;
 
 	private String nomeUsuario;
-
 	private String senha;
 
-/*	@PostConstruct
-	public void init(){
-		
-		System.out.println("teste");
-	}*/
 	public String login() {
 
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -51,9 +44,15 @@ public class LoginBean {
 
 		return null;
 	}
+	
+	public String logout(){
+		
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		return "/login?faces-redirect=true";
+	}
 
 	public String getNomeUsuario() {
-		return this.nomeUsuario;
+		return nomeUsuario;
 	}
 
 	public void setNomeUsuario(String nomeUsuario) {
@@ -61,7 +60,7 @@ public class LoginBean {
 	}
 
 	public String getSenha() {
-		return this.senha;
+		return senha;
 	}
 
 	public void setSenha(String senha) {

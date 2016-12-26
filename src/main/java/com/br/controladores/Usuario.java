@@ -6,16 +6,16 @@ package com.br.controladores;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
 
 /**
  * @author Filipe Bezerra
  *
  */
 
-@ManagedBean
-@ApplicationScoped
+@Named
+@SessionScoped
 public class Usuario implements Serializable {
 
 	/**
